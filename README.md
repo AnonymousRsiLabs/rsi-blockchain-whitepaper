@@ -11,4 +11,4 @@ Ethical Gradient (UCM-2026β)
 Difficulty as Safety Metric
 
 Full paper:
-rsi-blockchain-whitepaper.md（近日追加）
+rsi-blockchain-whitepaper.md（soon）
