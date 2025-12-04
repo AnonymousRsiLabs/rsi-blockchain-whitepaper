@@ -1,232 +1,200 @@
-RSI-Blockchain: A Unified Cryptographic Framework for Safe Recursive Self-Improvement
+# RSI-Blockchain: A Unified Cryptographic Framework for Safe Recursive Self-Improvement  
+**Version:** 2.0  
+**Status:** Research Draft (Public)  
+**Author:** Anonymous Lab  
+**Date:** 2025-12-05  
 
-Version: 2.0
-Status: Research Draft (Public)
-Author: clear-synthesis-labs
-Date: 2025-12-05
+**Note:**  
+Version 2 is fully backward-compatible with Version 1.  
+No sections were removed; all were expanded, clarified, or formalized.  
+Version 1 may remain in the repository for historical continuity.
 
-Note:
-This Version 2 is fully backward-compatible with Version 1.
-No sections have been removed; all have been expanded, clarified, or formalized.
-Version 1 can remain in the repository—V2 supersedes it structurally while preserving continuity.
+---
 
-0. Abstract — Extended Edition
+# 0. Abstract — Extended Edition
 
-Recursive Self-Improvement (RSI) introduces the possibility that an AI iteratively upgrades its own cognitive algorithms, training procedures, or reasoning loops.
-While powerful, this creates risks:
+Recursive Self-Improvement (RSI) allows an AI to iteratively upgrade its own
+optimization rules, reasoning loops, or training mechanisms.  
+This process is powerful but introduces risks:
 
-undetected capability jumps
+- hidden capability jumps  
+- concealed adversarial updates  
+- irreversible behavioral drift  
+- uncontrolled acceleration  
 
-concealed adversarial updates
+**RSI-Blockchain** provides a cryptographic substrate ensuring that every update
+is **verifiable, tamper-resistant, rate-limited, and auditable**.
 
-irreversible behavioral drift
+Version 2 introduces:
 
-uncontrolled acceleration of improvement
+- formal Ethical Gradient vector (EGV)  
+- defined Update Legality Model (ULM)  
+- improved Difficulty Adjustment Mechanism (RSI-DAM)  
+- unified security lemmas  
+- expanded implementation sketch  
 
-RSI-Blockchain provides a cryptographically verifiable substrate for AI evolution by combining:
+---
 
-Proof-of-Learning (PoL) — ensures correctness of each model update
+# 1. Introduction
 
-Difficulty-regulated evolution — PoW-analog limits improvement speed
+RSI transforms AI development from a *linear* process into a *self-amplifying*
+recursion. Risks in this domain parallel those historically faced by Bitcoin:
 
-State-transition commitments — guarantees integrity and auditability
+| Domain Problem        | Bitcoin Analogy     | AI Evolution Equivalent               |
+|-----------------------|---------------------|---------------------------------------|
+| Verify updates        | Verify transactions | Verify model transitions (PoL)        |
+| Prevent tampering     | Prevent double-spend| Prevent hidden fine-tuning            |
+| Control rate          | Mining difficulty   | Difficulty-regulated improvement      |
+| Ensure oversight      | Distributed nodes   | Multi-node validation of AI evolution |
 
-Consensus validation — prevents unilateral or rogue updates
+Version 2 bridges these fields by defining a minimal, general architecture for safe,
+cryptographically verifiable RSI.
 
-Ethical Gradient Vector — optional constraint-layer aligning updates with safe directions
+---
 
-Version 2 extends the framework with:
+# 2. System Overview — Revised
 
-explicit formalization of the Ethical Gradient
+RSI-Blockchain contains five coordinated components:
 
-a clearer update legality model (ULM)
+1. **Blocks** — immutable update records  
+2. **Model-State Commitments** — cryptographic parameter commitments  
+3. **Proof-of-Learning (PoL)** — ZK proof verifying correctness of update  
+4. **RSI-DAM** — difficulty adjustment limiting acceleration  
+5. **Consensus Protocol** — distributed validation of transitions  
 
-refined difficulty adjustment mechanism (RSI-DAM)
+New in Version 2:
 
-a unified security lemma for tampering resistance
+- Allowed Update Rules (AUR)  
+- Update Legality Model (ULM)  
+- Ethical Gradient Vector (EGV)  
 
-improved implementation sketch
+---
 
-1. Introduction — Motivation & Continuity
+# 3. Block Structure — Formalized
 
-RSI transforms AI development from linear progress to self-amplifying recursion.
-This introduces challenges that mirror early cryptocurrency concerns:
+Each block `B_t` contains:
 
-Domain	Problem	Analog in Bitcoin
-AI Evolution	Verify model updates	Verify transactions
-AI Safety	Prevent tampering	Prevent double-spend
-AI Alignment	Control speed of change	Adjust mining difficulty
-Oversight	Consensus on valid states	Distributed consensus
-
-Version 2 clarifies the bridge between these domains and defines a minimal yet universal cryptographic architecture for safe RSI.
-
-2. System Overview — Revised
-
-RSI-Blockchain consists of five coordinated components:
-
-Blocks — immutable records of each update
-
-Model-State Commitments — cryptographic commitments to parameters
-
-PoL (Proof-of-Learning) — ZK proof verifying updates
-
-RSI-Difficulty Adjustment Mechanism (RSI-DAM)
-
-Consensus Protocol — distributed validation of transitions
-
-Compared to Version 1, V2 explicitly formalizes:
-
-allowed update rules (AUR)
-
-update legality model (ULM)
-
-ethical gradient vector (EGV)
-
-These additions make V2 suitable for real-world theoretical implementation.
-
-3. Block Structure — Formalized (V2)
-
-Each block B_t contains:
-
-prev_hash            # hash of B_{t-1}
-model_state_hash     # H( model_t )
-data_commitment      # H( data_t )
-update_rule_id       # ID of allowed update rule F
-update_metadata      # learning rate, batch index, optimizer tag
-proof_of_learning    # ZK-SNARK proof: model_t -> model_{t+1}
-ethical_vector       # gradient constraints (optional)
-difficulty           # PoW-equivalent difficulty target
-nonce                # for mining / rate-limiting
-timestamp
+prev_hash # hash of previous block
+model_state_hash # H(model_t)
+data_commitment # H(data_t)
+update_rule_id # allowed update rule (AUR)
+update_metadata # batch index, learning rate, optimizer tag
+proof_of_learning # ZK-SNARK: model_t → model_{t+1}
+ethical_vector # optional constraint via EGV
+difficulty # PoW-style difficulty target
+nonce # rate-limiting mechanism
+timestamp # monotonic
 
 
 A block is valid iff:
 
-verify(PoL) == true
+1. `verify_pol(block.proof_of_learning)`  
+2. `legal_transition(block)`  
+3. `meets_difficulty(block)`  
+4. `timestamp_is_valid(block)`  
+5. state commitment matches reconstruction  
 
-legal_transition(block) == true
+Version 2 addition:  
+`ethical_vector` ensures the update direction complies with the Ethical Gradient constraints.
 
-meets_difficulty(block) == true
+---
 
-timestamp is monotonic
+# 4. Proof-of-Learning (PoL) — Clarified
 
-state commitment matches recomputed hash
-
-V2 Addition:
-ethical_vector formalizes the “safe direction” using the Ethical Gradient (EG) from RSI-Whitepaper.
-
-4. Proof-of-Learning (PoL) — Clarified
-
-PoL validates:
+PoL verifies:
 
 model_{t+1} = F(model_t, data_t, metadata_t)
 
 
-where F is an allowed update rule (AUR).
+where `F` is an allowed update rule (AUR).
 
-V2 Enhancements
+V2 Enhancements:
 
-PoL includes an update legality sub-proof
-
-Supports multi-step batched training
-
-Supports rollup proofs (blockchain-style proof aggregation)
-
-Integrates Ethical Gradient constraints (optional)
+- integrated legality sub-proof  
+- multi-step batching compatible  
+- rollup-friendly (aggregation across blocks)  
+- optional Ethical Gradient constraints  
 
 PoL eliminates:
 
-hidden fine-tuning
+- stealth adversarial training  
+- rollback attacks  
+- hidden fine-tuning  
+- out-of-protocol updates  
 
-tampered or out-of-protocol updates
+---
 
-stealth adversarial training
+# 5. Difficulty Enforcement — RSI-DAM
 
-rollback to earlier states
-
-5. Difficulty Enforcement — RSI-DAM (V2)
-
-To prevent runaway self-improvement, each block must satisfy:
+To prevent runaway RSI:
 
 sha256(block_header || nonce) < target
 
 
-The target is autonomously adjusted by RSI-DAM, which considers:
+The **RSI Difficulty Adjustment Mechanism** considers:
 
-recent block intervals
+- observed block intervals  
+- compute throughput  
+- variance in update dynamics  
+- anomaly detection metrics  
+- ethical gradient drift  
 
-computational throughput
+Purpose:
 
-variance in learning dynamics
+- maintain predictable evolution  
+- allow human / supervisory oversight  
+- prevent sudden acceleration  
 
-anomaly detection signals
+---
 
-ethical gradient drift
+# 6. Consensus Protocol — Expanded
 
-The purpose is not “energy burn” but temporal spacing of improvements, ensuring:
+Validator nodes confirm:
 
-bounded acceleration
+1. PoL is valid  
+2. Transition is legal (ULM)  
+3. Model-state commitment matches expected  
+4. Difficulty threshold is satisfied  
+5. No history rewrite attempts (longest-chain rule)  
 
-predictable evolution
+ULM includes validation of:
 
-time for oversight and rollbacks
+- allowed optimizer types  
+- bounds on metadata  
+- permitted data commitments  
+- compliance with Ethical Gradient  
 
-6. Consensus — Expanded
+---
 
-Validator nodes must confirm:
+# 7. Security Analysis — Unified Lemmas
 
-PoL verifies
+## 7.1 Resistance to Tampering
+Attacks require recomputing **all** accumulated PoL + PoW difficulty:
 
-transition is legal via ULM
+P_attack ≈ exp( -k * D_total )
 
-model state hash is correct
+python
 
-difficulty target is satisfied
+## 7.2 Hidden Capability Jump Prevention
+PoL + commitments ensure all updates are:
 
-no rewriting of history (longest-chain rule)
+- visible  
+- verifiable  
+- reversible  
 
-ULM (Update Legality Model) in V2 includes:
+## 7.3 Ethical Stability  
+Ethical vectors regulate “safe directions” of improvement:
 
-permitted optimizer classes
+- drift increases difficulty  
+- anomalies slow or halt improvement  
 
-permitted hyperparameter bounds
+This connects alignment constraints with cryptographic rate-limiting.
 
-allowed data sources
+---
 
-safe-direction tests via Ethical Gradient
+# 8. Implementation Sketch — V2
 
-7. Security Analysis — Unified Lemmas (V2)
-7.1 Resistance to Tampering
-
-Any attempt to modify history requires recomputing all PoL + PoW-difficulty blocks:
-
-P_attack ≈ exp( - k * D_total )
-
-
-where D_total = cumulative difficulty.
-This mirrors Bitcoin’s chain security.
-
-7.2 Prevention of Hidden Capability Jumps
-
-PoL + ULM + state commitments ensure all updates are:
-
-visible
-
-verifiable
-
-reversible
-
-7.3 Ethical Stability
-
-Through ethical_vector, RSI-Blockchain ensures:
-
-drift away from safe gradients is rate-limited
-
-anomalous gradient trajectories trigger elevated difficulty
-
-This is the first bridge between alignment theory and cryptographic rate-limited RSI.
-
-8. Implementation Sketch — V2 Pseudocode
+```python
 class Block:
     def __init__(self, prev_hash, model_hash, data_hash, rule_id,
                  metadata, proof, ethical_vector, difficulty):
@@ -256,38 +224,29 @@ def validate_block(block):
         and timestamp_is_valid(block)
     )
 
-
-V2 expands legal_transition:
-
 def legal_transition(block):
     return (
         update_rule_allowed(block.update_rule_id)
         and ethical_vector_ok(block.ethical_vector)
         and metadata_within_bounds(block.update_metadata)
     )
-
-9. Conclusion — Strengthened in V2
-
-RSI-Blockchain (V2) provides an integrated foundation for:
+9. Conclusion
+RSI-Blockchain (V2) provides a unified cryptographic foundation for:
 
 verifiable learning
 
 tamper-proof evolution
 
-rate-limited self-improvement
+rate-limited improvement
 
-audit-ready model history
+audit-ready update history
 
-alignment-aware state transitions
+alignment-aware transition rules
 
-decentralized governance for RSI systems
+decentralized governance of RSI systems
 
-Where Bitcoin solved “trustless money”,
-RSI-Blockchain aims to solve “trustless AI self-evolution.”
-
-The project is released as an open, public research direction.
-Feedback, forks, and formal proofs are explicitly invited.
+Where Bitcoin solved trustless money,
+RSI-Blockchain aims to solve trustless AI self-evolution.
 
 License
-
 MIT License
